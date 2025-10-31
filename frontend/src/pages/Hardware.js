@@ -25,7 +25,7 @@ function Hardware({ onBack }) {
   nombre: "Quiz - Hardware Básico",
   descripcion: "Responde preguntas sobre componentes básicos de hardware",
   icono: "❓",
-  enlace: "/juegos/hardware/preg/index.html"  // ← Ruta directa al HTML
+  enlace: "/juegos-hardware/preg/index.html"  // ← Ruta directa al HTML
    },
     {
       id: 4,
