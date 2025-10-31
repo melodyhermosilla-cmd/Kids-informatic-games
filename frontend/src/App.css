@@ -1,0 +1,51 @@
+/* ESTILOS GLOBALES - Variables CSS de tu diseño */
+:root {
+  --color-primario: #1a1a2e;
+  --color-secundario: #16213e;
+  --color-accento: #0f3460;
+  --color-destacado: #e94560;
+  --color-texto: #ffffff;
+  --color-texto-secundario: #b8b8b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background-color: var(--color-primario);
+  color: var(--color-texto);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Importar fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* Estilos para las secciones */
+.section {
+  display: none;
+  flex: 1;
+}
+
+.section.active {
+  display: block;
+}
+
+main {
+  min-height: calc(100vh - 80px);
+}

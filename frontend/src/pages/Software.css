@@ -1,0 +1,179 @@
+/* ESTILOS DEL CARRUSEL GIRATORIO */
+.juegos-carrusel {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin: 3rem auto;
+  perspective: 1000px;
+}
+
+.carrusel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.carrusel-juego {
+  position: absolute;
+  width: 320px;
+  height: 420px;
+  background: var(--color-secundario);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  border: 3px solid var(--color-destacado);
+  backface-visibility: hidden;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carrusel-juego.active {
+  transform: translateX(-50%) translateZ(0);
+  opacity: 1;
+  z-index: 3;
+}
+
+.carrusel-juego.prev {
+  transform: translateX(-150%) rotateY(10deg);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.carrusel-juego.next {
+  transform: translateX(50%) rotateY(-10deg);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.carrusel-juego.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateZ(-200px);
+  z-index: 1;
+}
+
+.juego-icon {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.carrusel-juego h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-destacado);
+  font-family: var(--fuente-principal);
+}
+
+.carrusel-juego p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--color-texto-secundario);
+  line-height: 1.6;
+}
+
+.carrusel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.carrusel-btn {
+  background: var(--color-accento);
+  color: white;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.carrusel-btn:hover {
+  background: var(--color-destacado);
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+}
+
+/* LISTA MINI DE JUEGOS (respaldo) */
+.juegos-lista-mini {
+  margin-top: 4rem;
+  padding: 2rem;
+  background: var(--color-secundario);
+  border-radius: 16px;
+  border-left: 4px solid var(--color-destacado);
+}
+
+.juegos-lista-mini h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-destacado);
+  font-family: var(--fuente-principal);
+  text-align: center;
+}
+
+.mini-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.mini-juego {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-accento);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mini-juego:hover {
+  background: var(--color-destacado);
+  transform: translateX(5px);
+}
+
+.mini-icon {
+  font-size: 1.5rem;
+}
+
+.mini-nombre {
+  color: var(--color-texto);
+  font-size: 1rem;
+  font-family: var(--fuente-secundaria);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .juegos-carrusel {
+    height: 400px;
+  }
+  
+  .carrusel-juego {
+    width: 280px;
+    height: 380px;
+    padding: 2rem;
+  }
+  
+  .carrusel-juego.prev {
+    transform: translateX(-120%) rotateY(10deg);
+  }
+  
+  .carrusel-juego.next {
+    transform: translateX(20%) rotateY(-10deg);
+  }
+}

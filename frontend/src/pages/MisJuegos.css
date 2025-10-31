@@ -1,0 +1,51 @@
+.mis-juegos-container,
+.configuracion-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.mis-juegos-header h2,
+.configuracion-header h2 {
+  font-size: 3rem;
+  color: var(--color-destacado);
+  margin-bottom: 1rem;
+  font-family: var(--fuente-principal);
+  text-align: center;
+}
+
+.mis-juegos-header p,
+.configuracion-header p {
+  font-size: 1.3rem;
+  color: var(--color-texto-secundario);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.coming-soon {
+  background: var(--color-secundario);
+  padding: 4rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid var(--color-destacado);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon h3 {
+  font-size: 2rem;
+  color: var(--color-destacado);
+  margin-bottom: 1rem;
+  font-family: var(--fuente-principal);
+}
+
+.coming-soon p {
+  color: var(--color-texto-secundario);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,9 @@
+{
+  "gameStats": {
+    "correctAnswers": 0,
+    "incorrectAnswers": 0,
+    "lastPlayed": null,
+    "totalGames": 0,
+    "bestAccuracy": 0
+  }
+}
