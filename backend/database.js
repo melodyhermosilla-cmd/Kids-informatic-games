@@ -1,24 +1,19 @@
-// 🔮 database.js - COFRE DEL TESORO MÁGICO
-const mysql = require('mysql2');
+// backend/database.js
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./kig-usuarios.db');
 
-// Hechizo de conexión mágica
-const conexionMagica = mysql.createConnection({
-  host: 'localhost',          // Donde vive el cofre
-  user: 'root',               // Llave maestra
-  password: '',               // Contraseña mágica (vacía por ahora)
-  database: 'juegos_magicos'  // Nombre del cofre
+db.serialize(() => {
+  db.run(`
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT NOT NULL,
+      email TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL,
+      juegosJugados INTEGER DEFAULT 0,
+      logros INTEGER DEFAULT 0,
+      puntos INTEGER DEFAULT 0
+    )
+  `);
 });
 
-// Intentar abrir el cofre
-conexionMagica.connect((error) => {
-  if (error) {
-    console.log('🔮 El cofre mágico no está disponible, pero podemos jugar igual');
-    console.log('💡 No te preocupes, el servidor funciona sin base de datos por ahora');
-  } else {
-    console.log('✅ ¡Cofre mágico de datos abierto!');
-    console.log('💰 Todos los tesoros están disponibles');
-  }
-});
-
-// Compartir el cofre con otros hechizos
-module.exports = conexionMagica;
+module.exports = db;

@@ -8,54 +8,104 @@ const Header = ({ currentSection, onSectionChange }) => {
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
 
   // Cargar usuario al iniciar
-  useEffect(() => {
-    const savedUser = localStorage.getItem('kig-user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/me', {
+        credentials: 'include'
+      });
+      if (res.ok) {
+        const userData = await res.json();
+        setUser(userData);
+        localStorage.setItem('kig-user', JSON.stringify(userData));
+      } else {
+        setUser(null);
+        localStorage.removeItem('kig-user');
+      }
+    } catch (err) {
+      console.error('No se pudo verificar sesión');
+      setUser(null);
+      localStorage.removeItem('kig-user');
     }
-  }, []);
+  };
+
+  fetchUser();
+}, []);
 
   const handleSectionChange = (section) => {
     onSectionChange(section);
     setDropdownOpen(false);
   };
 
-  const handleLogin = (email, password) => {
-    // Simulación de login (en una app real esto iría al backend)
-    const userData = {
-      nombre: email.split('@')[0],
-      email: email,
-      juegosJugados: 0,
-      logros: 0,
-      puntos: 0
-    };
-    
-    setUser(userData);
-    localStorage.setItem('kig-user', JSON.stringify(userData));
-    setLoginModalOpen(false);
-    setDropdownOpen(false);
-  };
+  // 👇 Reemplaza handleLogin (busca la función actual y cámbiala por esta)
+const handleLogin = async (email, password) => {
+  try {
+    const res = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
 
-  const handleRegister = (nombre, email, password) => {
-    const userData = {
-      nombre: nombre,
-      email: email,
-      juegosJugados: 0,
-      logros: 0,
-      puntos: 0
-    };
-    
-    setUser(userData);
-    localStorage.setItem('kig-user', JSON.stringify(userData));
-    setRegisterModalOpen(false);
-    setDropdownOpen(false);
-  };
+    const data = await res.json();
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('kig-user');
-    setDropdownOpen(false);
-  };
+    if (res.ok) {
+      setUser(data);
+      localStorage.setItem('kig-user', JSON.stringify(data));
+      setLoginModalOpen(false);
+      setDropdownOpen(false);
+    } else {
+      alert('Error: ' + (data.error || 'Credenciales inválidas'));
+    }
+  } catch (err) {
+    console.error('Error en login:', err);
+    alert('No se pudo conectar al servidor. ¿Está el backend corriendo?');
+  }
+};
+
+// 👇 Reemplaza handleRegister
+const handleRegister = async (nombre, email, password) => {
+  if (!nombre || !email || !password) {
+    alert('Todos los campos son obligatorios');
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, email, password })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      // Después de registrarse, iniciamos sesión automáticamente
+      await handleLogin(email, password);
+    } else {
+      alert('Error: ' + (data.error || 'Registro fallido'));
+    }
+  } catch (err) {
+    console.error('Error en registro:', err);
+    alert('No se pudo conectar al servidor. ¿Está el backend corriendo?');
+  }
+};
+
+// 👇 Reemplaza handleLogout
+const handleLogout = async () => {
+  try {
+    await fetch('http://localhost:5000/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+  } catch (err) {
+    console.error('Error al cerrar sesión');
+  }
+  setUser(null);
+  localStorage.removeItem('kig-user');
+  setDropdownOpen(false);
+};
 
   return (
     <header>
